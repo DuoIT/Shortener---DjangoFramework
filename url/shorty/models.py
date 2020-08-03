@@ -1,6 +1,9 @@
 from django.db import models
 from .utils import code_generator, create_shortcode
 from django.conf import settings
+from .validators import validate_url, validate_dot_com
+from django.core.urlresolvers import reverse
+# from django_hosts.resolvers import reverse
 # Create your models here.
 
 SHORTCODE_MAX = getattr(settings, "SHORTCODE_MAX", 15)
@@ -26,12 +29,11 @@ class shortyURLManager(models.Manager):
 
 
 class shortyURL(models.Model):
-    url = models.CharField(max_length=220, )
+    url = models.CharField(max_length=220, validators=[validate_url, validate_dot_com])
     shortcode = models.CharField(max_length=SHORTCODE_MAX, default='abc123', unique=True, blank=True)
     update = models.DateTimeField(auto_now=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
-
     objects = shortyURLManager()
 
     def save(self, *args, **kwargs):
@@ -44,3 +46,7 @@ class shortyURL(models.Model):
 
     def __unicode__(self):
         return str(self.url)
+
+    def get_short_url(self):
+        url_path = reverse('scode', kwargs={'shortcode':self.shortcode})
+        return '127.0.0.1:8000' + url_path

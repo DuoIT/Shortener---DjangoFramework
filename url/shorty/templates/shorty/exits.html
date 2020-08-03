@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exits</title>
+</head>
+<body>
+<div style="width: 500px; margin: 0 auto;">
+    <h1>Exits</h1>
+    <h4>Your link: </h4>
+    <p> {{ object.url }}</p>
+    <h4>Result: </h4>
+    <p><a href="{{ object.get_short_url }}">{{ object.get_short_url }}</a></p>
+    <a href="/">+ New link</a>
+</div>
+</body>
+</html>
