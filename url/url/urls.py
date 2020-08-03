@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from shorty.views import shorty_re_view, shortyClassReView
+from shorty.views import shortyReditectClassReView, homeView
+#shorty_re_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^a/(?P<shortcode>[\w-]+)/$', shorty_re_view),
-    url(r'^b/(?P<shortcode>[\w-]+)/$', shortyClassReView.as_view())
+    url(r'', homeView.as_view()),
+    # url(r'^a/(?P<shortcode>[\w-]+)/$', shorty_re_view),
+    url(r'^(?P<shortcode>[\w-]+)/$', shortyReditectClassReView.as_view(), name='scode')
 ]
